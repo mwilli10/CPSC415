@@ -79,7 +79,7 @@ public class QuizActivity extends AppCompatActivity {
 
         if (savedInstanceState != null){
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-//            mIsCheater = savedInstanceState.getBoolean(CHEATED, false);
+            mIsCheater = savedInstanceState.getBoolean(CHEATED, false);
         }
 
         mCheatButton.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +156,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
-//        savedInstanceState.putBoolean(CHEATED, mIsCheater);
+        savedInstanceState.putBoolean(CHEATED, mIsCheater);
 
     }
 

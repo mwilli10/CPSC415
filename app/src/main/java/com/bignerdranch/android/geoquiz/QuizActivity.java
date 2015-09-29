@@ -18,7 +18,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_INDEX = "index";
     private static final int REQUEST_CODE_CHEAT = 0;
     private static final String CHEATED = "cheated";
-
+    private static final int size = 5;
 
 
     private Button mTrueButton;
@@ -28,7 +28,8 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton mPreviousButton;
     private TextView mQuestionTextView;
     private int mCurrentIndex = 0;
-    private boolean mIsCheater;
+    private boolean mIsCheater[]= {false,false,false,false,false};
+
 
 
     private Question[] mQuestionBank = new Question[] {
@@ -48,7 +49,7 @@ public class QuizActivity extends AppCompatActivity {
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         int messageResId = 0;
-        if (mIsCheater == true) {
+        if (mIsCheater[mCurrentIndex] == true) {
             messageResId = R.string.judgement_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
@@ -79,7 +80,7 @@ public class QuizActivity extends AppCompatActivity {
 
         if (savedInstanceState != null){
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            mIsCheater = savedInstanceState.getBoolean(CHEATED, false);
+            mIsCheater = savedInstanceState.getBooleanArray(CHEATED);
         }
 
         mCheatButton.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +146,7 @@ public class QuizActivity extends AppCompatActivity {
             if (data ==null){
                 return;
             }
-            mIsCheater = CheatActivity.wasAnswerShown(data);
+            mIsCheater[mCurrentIndex] = CheatActivity.wasAnswerShown(data);
         }
 
 
@@ -156,7 +157,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
-        savedInstanceState.putBoolean(CHEATED, mIsCheater);
+        savedInstanceState.putBooleanArray(CHEATED, mIsCheater);
 
     }
 
